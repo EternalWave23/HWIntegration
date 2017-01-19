@@ -12,6 +12,9 @@ int main() {
 	
 	Classifier cls;
 
+
+
+
 	Tester tester;
 	tester.Test(&reader, &cls);
 	tester.Report();
