@@ -1,0 +1,8 @@
+# ignore everything
+*
+
+# add all the file types you don't want miss
+!*.h
+!*.hpp
+!*.c
+!*.cpp
