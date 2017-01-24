@@ -5,19 +5,21 @@
 using namespace std;
 
 int main() {
-	cout << "hello world" << endl;
-	Reader reader;
-	reader.ReadFile("E:\\test\\");
-	reader.Parse();
+	// cout << "hello world" << endl;
+	Reader* reader = new Reader();
+	reader->ReadFile("F:\\Huawei\\Data\\test");
 	
-	Classifier cls;
+	Classifier* cls = new Classifier();
 
+	Tester* tester = new Tester();
+	tester->Test(reader, cls);
+	tester->Report();
 
+	free(reader);
+	free(cls);
+	free(tester);
 
-
-	Tester tester;
-	tester.Test(&reader, &cls);
-	tester.Report();
+	cout << "Complete!" << endl;
 	system("pause");
 	return 0;
 }
