@@ -7,15 +7,35 @@ class Features {
 public:
 	Features(FrameData** data, int frameCount, int pointIndex);
 	~Features();
+	bool IsValidShape(int shapeKind);
+
+	long timeFromFirstToDown;
+	bool firstFrameOnEdge;
+	bool firstFrameFromEdge;
+	int curSize;
+	int edgeLength;
 
 private:
-	void FillArea(FrameData* frame, int x, int y);
-	void TryExpand(FrameData* frame, int gridX, int gridY);
+	void FillArea(FrameData* frame, int x, int y, bool** area);
+	void TryExpand(FrameData* frame, int gridX, int gridY, bool** area);
+	void FindFirstFrame();
+	void FillPreviousFrame(FrameData* frame, FrameData* prevFrame, bool** area, bool** tmpArea);
+	void PrepareFirstFrame();
 
-	bool area[28][16];
 	int gridWidth;
 	int gridHeight;
+	int frameCount;
+	FrameData** data;
+
+	bool** area;
 	int threshold;
+
+	int downIndex;
+	int firstFrameIndex;
+	bool** firstFrameArea;
+	int xSpan;
+	int ySpan;
+	
 };
 
 #endif

@@ -5,7 +5,7 @@
 using namespace std;
 
 Classifier::Classifier() {
-	maxStorage = 30;
+	maxStorage = 50;
 	circularVector = new FrameData*[maxStorage];
 	start = 0;
 	end = -1;
@@ -48,10 +48,32 @@ bool Classifier::ClassifySinglePoint(FrameData** data, int frameCount, int point
 		return lastJudge[data[0]->touchID[pointIndex]];
 	}
 
+	bool result = true;
 	Features* feature = new Features(data, frameCount, pointIndex);
+	if (feature->firstFrameOnEdge) {
+		if (feature->firstFrameFromEdge) {
+			if (feature->timeFromFirstToDown < 400 && feature->curSize <= 25 && feature->IsValidShape(1)) {
+                result = false;
+			} else {
+				result = true; 
+			}
+		} else {
+			if (feature->IsValidShape(2)) {
+                result = false;
+			} else {
+				result = true; 
+			}
+		}
+	} else {
+		if (!feature->IsValidShape(3)) {
+            result = true; 
+		} else {
+			result = false;
+		}
+	}
 
 	free(feature);
-	return true;
+	return result;
 }
 
 int Classifier::NextIndex(int cur) {

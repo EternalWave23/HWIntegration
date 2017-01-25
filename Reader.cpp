@@ -13,8 +13,8 @@ void Reader::ReadFile(string fileName) {
 	vector<string>* files = new vector<string>();  
 	ListFiles(fileName, files);  
 
-	//for (int i = 0; i < files->size(); i++) { 
-	for (int i = 0; i < 1; i++) { 
+	for (int i = 0; i < files->size(); i++) { 
+	//for (int i = 0; i < 1; i++) { 
 		ReadSingleFile((*files)[i]);
 	}  
 	free(files);
@@ -117,7 +117,7 @@ void Reader::Parse(vector<string>* rawData) {
 			}
 			data->isDown.push_back(false);
 		}
-		free(tokens);	
+		free(tokens);
 	}
 	cout << frames->size() << " frames" << endl;
 
