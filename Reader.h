@@ -12,6 +12,7 @@ using namespace std;
 class Reader {
 public:
 	Reader();
+	~Reader();
 	void ReadFile(string fileName);
 	bool HasNextFrame();
 

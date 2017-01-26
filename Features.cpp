@@ -42,9 +42,9 @@ Features::Features(FrameData** data, int frameCount, int pointIndex) {
 
 Features::~Features() {
 	for (int i = 0; i < 28; i++) {
-		free(area[i]);
+		delete []area[i];
 	}
-	free(area);
+	delete []area;
 }
 
 void Features::PrepareFirstFrame() {
@@ -287,16 +287,16 @@ void Features::FindFirstFrame() {
 			}
 			if (!flag) {
 				for (int i = 0; i < 28; i++) {
-					free(tmpArea[i]);
+					delete []tmpArea[i];
 				}
-				free(tmpArea);
+				delete []tmpArea;
 				break;
 			} else {
 				if (firstFrameArea != area) {
 					for (int i = 0; i < 28; i++) {
-						free(firstFrameArea[i]);
+						delete []firstFrameArea[i];
 					}
-					free(firstFrameArea);
+					delete []firstFrameArea;
 				}
 				firstFrameArea = tmpArea;
 				firstFrameIndex++;

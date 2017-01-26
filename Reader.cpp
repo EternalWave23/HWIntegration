@@ -9,6 +9,16 @@ Reader::Reader() {
 	allData = new vector<vector<FrameData*>*>();
 }
 
+Reader::~Reader() {
+	for (int i = 0; i < allData->size(); i++) {
+		for (int j = 0; j < (*allData)[i]->size(); j++) {
+			delete (*(*allData)[i])[j];
+		}
+		delete (*allData)[i];
+	}
+	delete allData;
+}
+
 void Reader::ReadFile(string fileName) {
 	vector<string>* files = new vector<string>();  
 	ListFiles(fileName, files);  
@@ -17,7 +27,7 @@ void Reader::ReadFile(string fileName) {
 	//for (int i = 0; i < 1; i++) { 
 		ReadSingleFile((*files)[i]);
 	}  
-	free(files);
+	delete files;
 }
 
 void Reader::ListFiles(string path, vector<string>* files ) {  
@@ -56,7 +66,7 @@ void Reader::ReadSingleFile(string fileName) {
 	in.close();
 	//cout << rawData->size() << endl;
 	Parse(rawData);
-	free(rawData);
+	delete rawData;
 }
 
 void Reader::Parse(vector<string>* rawData) {
@@ -88,7 +98,7 @@ void Reader::Parse(vector<string>* rawData) {
 					}
 				}
 			}
-			free(capData);
+			delete capData;
 			frames->push_back(data);
 		}
 		if (strcmp((*tokens)[2].c_str(), "True") == 0) {
@@ -117,7 +127,7 @@ void Reader::Parse(vector<string>* rawData) {
 			}
 			data->isDown.push_back(false);
 		}
-		free(tokens);
+		delete tokens;
 	}
 	cout << frames->size() << " frames" << endl;
 
@@ -160,7 +170,7 @@ void Reader::SplitTouchEvent(vector<FrameData*>* frames) {
 			lastTime[ID] = (*frames)[i]->time;
 		}
 	}
-	free(lastTime);
+	delete []lastTime;
 }
 
 FrameData* Reader::NextFrame() {

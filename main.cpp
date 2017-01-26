@@ -15,9 +15,9 @@ int main() {
 	tester->Test(reader, cls);
 	tester->Report();
 
-	free(reader);
-	free(cls);
-	free(tester);
+	delete reader;
+	delete cls;
+	delete(tester);
 
 	cout << "Complete!" << endl;
 	system("pause");

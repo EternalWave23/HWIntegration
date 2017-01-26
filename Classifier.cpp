@@ -19,9 +19,9 @@ Classifier::Classifier() {
 }
 
 Classifier::~Classifier() {
-	free(circularVector);
-	free(lastTime);
-	free(lastJudge);
+	delete []circularVector;
+	delete []lastTime;
+	delete []lastJudge;
 }
 
 vector<bool> Classifier::Classify(FrameData* data) {
@@ -37,7 +37,7 @@ vector<bool> Classifier::Classify(FrameData* data) {
 	for (int i = 0; i < data->touchID.size(); i++) {
 		result.push_back(ClassifySinglePoint(sorted, validNum, i));
 	}
-	free(sorted);
+	delete []sorted;
 	return result;
 }
 
@@ -72,7 +72,7 @@ bool Classifier::ClassifySinglePoint(FrameData** data, int frameCount, int point
 		}
 	}
 
-	free(feature);
+	delete feature;
 	return result;
 }
 
