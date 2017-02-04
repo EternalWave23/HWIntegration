@@ -2,11 +2,12 @@
 
 using namespace std;
 
-Reader::Reader() {
+Reader::Reader(string fileName) {
 	fileIndex = 0;
 	nextFrameIndex = 0;
 	hasNextFrame = false;
 	allData = new vector<vector<FrameData*>*>();
+	ReadSingleFile(fileName);
 }
 
 Reader::~Reader() {
@@ -18,35 +19,6 @@ Reader::~Reader() {
 	}
 	delete allData;
 }
-
-void Reader::ReadFile(string fileName) {
-	vector<string>* files = new vector<string>();  
-	ListFiles(fileName, files);  
-
-	for (int i = 0; i < files->size(); i++) { 
-	//for (int i = 0; i < 1; i++) { 
-		ReadSingleFile((*files)[i]);
-	}  
-	delete files;
-}
-
-void Reader::ListFiles(string path, vector<string>* files ) {  
-    long hFile = 0;  
-    struct _finddata_t fileinfo;  
-    string p;  
-    if ((hFile = _findfirst(p.assign(path).append("\\*").c_str(), &fileinfo)) != -1) {  
-		do {  
-            if ((fileinfo.attrib &  _A_SUBDIR)) {  
-                if (strcmp(fileinfo.name,".") != 0 && strcmp(fileinfo.name,"..") != 0) {
-                    ListFiles(p.assign(path).append("\\").append(fileinfo.name), files);
-				}
-            } else {  
-                files->push_back(p.assign(path).append("\\").append(fileinfo.name));  
-            }  
-        } while (_findnext(hFile, &fileinfo) == 0);  
-        _findclose(hFile);  
-    }  
-}  
 
 void Reader::ReadSingleFile(string fileName) {
 	cout << fileName.c_str() << endl;
@@ -157,20 +129,22 @@ void Reader::Split(string data, char delimiter, vector<string>* result) {
 }
 
 void Reader::SplitTouchEvent(vector<FrameData*>* frames) {
-	long* lastTime = new long[20];
+	long lastTime[20];
 	for (int i = 0; i < 20; i++) {
 		lastTime[i] = -10000;
 	}
+
 	for (int i = 0; i < frames->size(); i++) {
 		for (int j = 0; j < (*frames)[i]->touchID.size(); j++) {
 			int ID = (*frames)[i]->touchID[j];
-			if ((*frames)[i]->time - lastTime[ID] > 20) {
-				(*frames)[i]->isDown[j] = true;
+			if (ID >= 0 && ID < 20) {
+				if ((*frames)[i]->time - lastTime[ID] > 20) {
+					(*frames)[i]->isDown[j] = true;
+				}
+				lastTime[ID] = (*frames)[i]->time;
 			}
-			lastTime[ID] = (*frames)[i]->time;
 		}
 	}
-	delete []lastTime;
 }
 
 FrameData* Reader::NextFrame() {

@@ -38,6 +38,9 @@ vector<bool> Classifier::Classify(FrameData* data) {
 		result.push_back(ClassifySinglePoint(sorted, validNum, i));
 	}
 	delete []sorted;
+	for (int i = 0; i < data->touchID.size(); i++) {
+		result.push_back(false);
+	}
 	return result;
 }
 

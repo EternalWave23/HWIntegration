@@ -6,11 +6,13 @@
 
 class Tester {
 public:
-	void Test(Reader* reader, Classifier* cls);
+	void Test();
 	void Report();
 	Tester();
 
 private:
+	void TestSingleFile(string fileName);
+	void ListFiles(string path, vector<string>* files); 
 	int TP, TN, FP, FN;
 	bool Label2Bool(int label);
 };

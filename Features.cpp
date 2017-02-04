@@ -45,6 +45,13 @@ Features::~Features() {
 		delete []area[i];
 	}
 	delete []area;
+
+	if (firstFrameArea != area) {
+		for (int i = 0; i < 28; i++) {
+			delete []firstFrameArea[i];
+		}
+		delete []firstFrameArea;
+	}
 }
 
 void Features::PrepareFirstFrame() {

@@ -11,15 +11,13 @@ using namespace std;
 
 class Reader {
 public:
-	Reader();
+	Reader(string fileName);
 	~Reader();
-	void ReadFile(string fileName);
 	bool HasNextFrame();
 
 	FrameData* NextFrame();
 
 private:
-	void ListFiles(string path, vector<string>* files); 
 	void ReadSingleFile(string fileName);
 	void Parse(vector<string>* rawData);
 	void Split(string data, char delimiter, vector<string>* result);
