@@ -96,6 +96,7 @@ bool Classifier::ClassifySinglePoint(FrameData** data, int frameCount, int point
 	}
 
 	delete feature;
+	lastJudge[data[0]->touchID[pointIndex]] = !result;
 	return !result;
 }
 
