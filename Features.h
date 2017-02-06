@@ -15,6 +15,8 @@ public:
 	int curSize;
 	int edgeLength;
 
+	
+
 private:
 	void FillArea(FrameData* frame, int x, int y, bool** area);
 	void TryExpand(FrameData* frame, int gridX, int gridY, bool** area);
@@ -25,16 +27,18 @@ private:
 	int gridWidth;
 	int gridHeight;
 	int frameCount;
+	
+	int xSpan;
+	int ySpan;
 	FrameData** data;
-
 	bool** area;
+	
 	int threshold;
 
 	int downIndex;
 	int firstFrameIndex;
 	bool** firstFrameArea;
-	int xSpan;
-	int ySpan;
+	
 	
 };
 

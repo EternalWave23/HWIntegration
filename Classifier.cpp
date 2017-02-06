@@ -72,11 +72,31 @@ bool Classifier::ClassifySinglePoint(FrameData** data, int frameCount, int point
             result = true; 
 		} else {
 			result = false;
+			/*FrameData* cur = feature->data[0];
+			cout << "capacity:" << endl;
+			for (int i = 0; i < 28; i ++) {
+				for (int j = 0; j < 16; j++) {
+					cout << cur->capacity[i][j] << "\t";
+				}
+				cout << endl;
+			}
+			cout << "area: " << endl;
+			for (int i = 0; i < 28; i ++) {
+				for (int j = 0; j < 16; j++) {
+					cout << feature->area[i][j] << "\t";
+				}
+				cout << endl;
+			}
+			printf("x = %d, y = %d, edge = %d\n", feature->xSpan, feature->ySpan, feature->edgeLength);
+			if (data[0]->isDown[pointIndex] && data[0]->label[pointIndex] < 6) {
+				cout << "TN3" << endl;
+			}*/
+			
 		}
 	}
 
 	delete feature;
-	return result;
+	return !result;
 }
 
 int Classifier::NextIndex(int cur) {

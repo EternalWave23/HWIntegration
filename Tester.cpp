@@ -46,9 +46,11 @@ void Tester::TestSingleFile(string fileName) {
 		FrameData* tmp = reader->NextFrame();
 		//cout << i << ", " << tmp->isDown << endl;
 		//i++;
+		//bool flag = false;
 		vector<bool> result = cls->Classify(tmp);
 		for (int i = 0; i < tmp->touchID.size(); i++) {
 			if (tmp->isDown[i]) {
+				//flag = true;
 				//cout << "aaaa" << endl;
 				bool groundTruth = Label2Bool(tmp->label[i]);
 				if (result[i]) {
@@ -66,6 +68,9 @@ void Tester::TestSingleFile(string fileName) {
 				}
 			}
 		}
+		//if (flag) {
+		//	break;
+		//}
 	}
 	delete reader;
 	delete cls;
